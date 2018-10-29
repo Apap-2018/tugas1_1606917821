@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>View Pegawai</title>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+	<style>
+		* {
+		    box-sizing: border-box;
+		}
+		
+		/* Create two equal columns that floats next to each other */
+		.column {
+		    float: left;
+		    width: 50%;
+		    padding: 10px;
+		    height: 300px; /* Should be removed. Only for demonstration */
+		}
+		
+		/* Clear floats after the columns */
+		.row:after {
+		    content: "";
+		    display: table;
+		    clear: both;
+		}
+	</style>
+</head>
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	<br><br>
+	<div class="row">
+	<div class="column">
+		<div class="card">
+			<h2>Data Pegawai Termuda</h2>
+		<table cellpadding="10">
+			<tr>
+				<td style="text-align: left">NIP</td>
+				<td style="text-align: left" th:text="${pegawaiMuda.nip}"></td>
+			</tr>
+			<tr>
+				<td style="text-align: left">Nama</td>
+				<td style="text-align: left" th:text="${pegawaiMuda.nama}"></td>
+			</tr>
+			<tr>
+				<td style="text-align: left">Tempat Lahir</td>
+				<td style="text-align: left" th:text="${pegawaiMuda.tempatLahir}"></td>
+			</tr>
+			<tr>
+				<td style="text-align: left">TanggalLahir</td>
+				<td style="text-align: left" th:text="${pegawaiMuda.tanggalLahir}"></td>
+			</tr>
+			<tr>
+				<td style="text-align: left">Nama Instansi</td>
+				<td style="text-align: left" th:text="${pegawaiMuda.instansi.nama} + ' - ' + ${pegawaiMuda.instansi.provinsi.nama}"></td>
+			</tr>
+			<tr>
+				<td style="text-align: left">Jabatan</td>
+				<td>
+				<th:block th:each="jabatanPegawaiMuda: ${jabatanPegawaiMuda}">
+					<a th:text="${jabatanPegawaiMuda.jabatan.nama}"></a>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align: left">Gaji</td>
+				<td style="text-align: left" th:text="'Rp ' + ${gajiPegawaiMuda}"></td>
+			</tr>
+		</table>
+		</div>
+	</div>
+		<div class="column">
+		<div class="card">
+		<h2>Data Pegawai Tertua</h2>
+		<table cellpadding="10">
+			<tr>
+				<td style="text-align: left">NIP</td>
+				<td style="text-align: left" th:text="${pegawaiTua.nip}"></td>
+			</tr>
+			<tr>
+				<td style="text-align: left">Nama</td>
+				<td style="text-align: left" th:text="${pegawaiTua.nama}"></td>
+			</tr>
+			<tr>
+				<td style="text-align: left">Tempat Lahir</td>
+				<td style="text-align: left" th:text="${pegawaiTua.tempatLahir}"></td>
+			</tr>
+			<tr>
+				<td style="text-align: left">TanggalLahir</td>
+				<td style="text-align: left" th:text="${pegawaiTua.tanggalLahir}"></td>
+			</tr>
+			<tr>
+				<td style="text-align: left">Nama Instansi</td>
+				<td style="text-align: left" th:text="${pegawaiTua.instansi.nama} + ' - ' + ${pegawaiTua.instansi.provinsi.nama}"></td>
+			</tr>
+			<tr>
+				<td style="text-align: left">Jabatan</td>
+				<td>
+				<th:block th:each="jabatanPegawaiTua: ${jabatanPegawaiTua}">
+					<a th:text="${jabatanPegawaiTua.jabatan.nama}"></a>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align: left">Gaji</td>
+				<td style="text-align: left" th:text="'Rp ' + ${gajiPegawaiTua}"></td>
+			</tr>
+		</table>
+		</div>
+		</div>
+	</div>
+</body>
+</html>

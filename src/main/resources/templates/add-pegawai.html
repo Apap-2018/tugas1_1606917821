@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Tambah Pegawai</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	<div class="container-fluid">
+		<div class="row" >
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header" align="center">
+						<h3 align ="center">Add Pegawai</h3>
+					</div>
+						<form th:action="@{/pegawai/tambah}" th:object=${pegawai} method="POST">
+							<input type="hidden" name = "nip" th:value="${pegawai.nip}">
+							<input type="hidden" name = "id" th:value="${pegawai.id}">
+							<table cellpadding ="10" align="center">
+								<tr>
+									<td>Nama</td>
+									<td><input type="text" name="nama" th:value="${pegawai.nama}"class="form-control"/></td>
+								</tr>
+								<tr>
+									<td>Tempat Lahir</td>
+									<td><input type="text" name="tempatLahir" th:value="${pegawai.tempatLahir}"class="form-control"/></td>
+								</tr>
+								<tr>
+									<td>Tanggal Lahir</td>
+									<td><input type="Date" name="tanggalLahir" th:value="${pegawai.tanggalLahir}" class="form-control"/></td>
+								</tr>
+								<tr>
+									<td>Tahun Masuk</td>
+									<td><input type="number" name="tahunMasuk" th:value="${pegawai.tahunMasuk}"class="form-control"/></td>
+								</tr>
+								<tr>
+									<td>Provinsi</td>
+									<td>
+										<select class="form-control" required="required" name="provinsi" id="provinsi">
+											<option disabled="disabled" selected="selected" >-- Pilih Provinsi --</option>
+											<option th:each="provinsi : ${allProvinsi}" th:value="${provinsi.id}" th:text="${provinsi.nama}"></option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td>Instansi</td>
+									<td>
+										<select class="form-control" required="required" name="instansi.id" id="instansi">
+											<option disabled="disabled" selected="selected" >-- Pilih Instansi --</option>
+											<option th:each="instansi : ${allInstansi}" th:value="${instansi.id}" th:text="${instansi.nama}"></option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td>Jabatan</td>
+		            				<td th:each="jabatanPegawai, statusJabatan : *{listJabatanPegawai}">
+		            					<select class="form-control" required="required" th:field="*{listJabatanPegawai[__${statusJabatan.index}__].jabatan}">
+							    			<option th:each="jabatan, status : ${allJabatan}" th:value="${jabatan.id}" th:text="${jabatan.nama}"></option>
+										</select>
+		            				</td>
+								</tr>
+								<tr>
+			            			<td></td>
+			            			<td><button type="submit" name="addJabatan" class="btn btn-info">Tambah Jabatan</button></td>
+		            			</tr>
+		            			<tr>
+		                			<td><button type="submit" name="save" class="btn btn-primary">Submit</button><td>
+		            			</tr>
+							</table>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+</body>
+<script th:inline="javascript">
+		 $('#provinsi').change(
+			        function() {
+			        	console.log("masuk 1")
+			            $.getJSON("/instansi", {
+			                provinsiId : $(this).val(),
+			                ajax : 'true'
+			            }, function(data) {
+			            	console.log("masuk 2")
+			                var html = '<option disabled="disabled" selected="selected">--Pilih Instansi--</option>';
+			                var len = data.length;
+			                for ( var i = 0; i < len; i++) {
+			                    html += '<option value="' + data[i].id + '">'
+			                            + data[i].nama + '</option>';
+			                }
+			                html += '</option>';
+			                $('#instansi').html(html);
+			            });
+			        });
+	</script>
+</script>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>View All</title>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	<h2>Cari Pegawai</h2>
+	<table id="myTable" class="display">
+		<thead>
+				<tr>
+					<th style="text-align: center">NIP</th>
+					<th style="text-align: center">Nama</th>
+					<th style="text-align: center">Tempat Lahir</th>
+					<th style="text-align: center">Tanggal Lahir</th>
+					<th style="text-align: center">Tahun Masuk</th>
+					<th style="text-align: center">Nama Instansi</th>
+				</tr>
+		</thead>
+		<tbody>
+				<tr th:each="pegawai : *{allPegawai}">
+					<td th:text="${pegawai.nip}"></td>
+					<td th:text="${pegawai.nama}"></td>
+					<td th:text="${pegawai.tempatLahir}"></td>
+					<td th:text="${pegawai.tanggalLahir}"></td>
+					<td th:text="${pegawai.tahunMasuk}"></td>
+					<td th:text="${pegawai.instansi.nama}"></td>
+				</tr>
+		</tbody>
+	</table>
+</body>
+<script>
+	$(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+</script>
+</html>

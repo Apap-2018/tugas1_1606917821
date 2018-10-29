@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Add Jabatan</title>
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+	<style>
+	</style>
+</head>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar(title= 'Add Jabatan')"></nav>
+		<h3>Tambah Jabatan</h3>
+		<div class="card">
+			<div class="card-body">
+			<form th:action="@{/jabatan/tambah}" th:object="${jabatan}" method = "POST">
+				<input type="hidden" th:field="*{id}"></input>	
+					<table>
+						<tr>
+							<td>Nama</td>
+							<td><input type="text" name = "nama"/ class="form-control"></td>
+						</tr>
+						<tr>
+							<td>Deskripsi</td>
+							<td><input type="text" name = "deskripsi" class="form-control"></td>		
+						</tr>
+						<tr>
+							<td>Gaji Pokok</td>
+							<td><input type="number" name = "gajiPokok" class="form-control"></td>					
+						</tr>
+					</table>
+					<br><br>
+					<button type="submit" class="btn btn-primary">Submit</button>
+			</form>
+			</div>
+			</div>
+	
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>View Jabatan</title>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+	<nav th:replace="fragments/fragment :: navbar(title= 'View Jabatan')"></nav>
+	<h2 th:text="'Detail Jabatan - ' + ${jabatan.nama}"></h2>
+	<br><br>
+	<form name="form">
+		<input type="hidden" name="idJabatan" th:value="${jabatan.id}" />
+		<table style="width:100%" cellpadding="30">
+				<tr>
+					<td style="text-align: left">Nama</td>
+					<td style="text-align: left" th:text="${jabatan.nama}"></td>
+				</tr>
+				<tr>
+					<td style="text-align: left">Deskripsi</td>
+					<td style="text-align: left" th:text="${jabatan.deskripsi}"></td>
+				</tr>
+				<tr>
+					<td style="text-align: left">Gaji Pokok</td>
+					<td style="text-align: left" th:text="'Rp' + ${jabatan.gajiPokok}"></td>
+				</tr>
+		</table>
+		<button type="submit" formaction="/jabatan/ubah">Ubah</button>
+		<button type="submit" formaction="/jabatan/hapus">Hapus</button>
+	</form>	
+</body>
+</html>
